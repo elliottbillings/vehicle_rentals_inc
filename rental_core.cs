@@ -75,6 +75,7 @@ namespace vehicle_rentals_inc
                 {
                     //TODO: Increase validity parameters, i.e force len 1.
                     input_int = int.Parse(input);
+                    
                     check = true;           
                 }
                 catch
@@ -165,13 +166,17 @@ namespace vehicle_rentals_inc
                         Console.WriteLine("Program Exit: Goodbye");
                         quit = true;
                         break;
+                    default :
+                        Console.WriteLine("Invalid Option");
+                        break;
+
                 }
                 
 
             }
 
             Console.WriteLine("Program Exit: Goodbye");
-            
+            Console.ReadLine();
         }
     }
 }
