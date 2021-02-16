@@ -29,9 +29,22 @@ namespace vehicle_rentals_inc
         public string S_Name;
         public string D_Licence;
         public string Address;
-        public int A_Number;
+        public int Client_ID;
 
     };
+
+    //Bookings Structure initiator
+
+    enum booking_state {Pending, Approved, In_Progress, Cancelled}
+
+    struct Booking
+    {
+        public booking_state State;
+        public int Client_ID;
+        public int Vehicle_ID;
+        //public string
+    }
+
 
     //Vehicle Structure initiator
 
@@ -48,15 +61,56 @@ namespace vehicle_rentals_inc
 
     class rental_core
     {
+        //General purpose methods
+
+        static string menu_input_sanity_check(string input)
+        {
+            int input_int;
+            bool check = false;
+            
+            while (check == false)
+            {
+                input = Console.ReadLine();
+                try
+                {
+                    //TODO: Increase validity parameters, i.e force len 1.
+                    input_int = int.Parse(input);
+                    check = true;           
+                }
+                catch
+                {
+                    check = false;
+                    Console.WriteLine("Invalid input, please try again");
+                    continue;
+                }
+            }
+
+            return input;
+        }
+
         //View Records Menu
             //Display all records, specific records filter search?
 
+        static void view_records_menu()
+        {
+           
+        }
+
         //Manage Records Menu
-            //
+            //Functionality for modifying existing or adding new records.
 
-        //
+        static void manage_records_menu()
+        {
 
-        //
+        }
+
+        //Pending
+
+        //Commit changes to file
+        static void commit_to_file()
+        {
+
+        }
 
 
         static void Main()
@@ -65,6 +119,9 @@ namespace vehicle_rentals_inc
             //global vars
             const int max_clients = 20;
             const int max_vehicles = 5;
+
+            string selection_s = "0";
+            int selection;
 
             bool quit = false;
 
@@ -76,11 +133,6 @@ namespace vehicle_rentals_inc
             //Master Menu Loop
             while(quit == false)
             {
-                string selection_s;
-                int selection_i;
-
-                //display menu list and prompt
-
                 Console.WriteLine("Main Menu: ");
                 Console.WriteLine("1 - View Records");
                 Console.WriteLine("2 - Manage Records");
@@ -89,54 +141,37 @@ namespace vehicle_rentals_inc
                 Console.WriteLine("5 - Quit");
                 Console.WriteLine("Enter selection: ");
 
-                selection_s = Console.ReadLine();
+                selection_s = menu_input_sanity_check(selection_s);
 
-                try
-                {
-                    selection_i = int.Parse(selection_s); //improve sanity check
-                }
-
-                catch
-                {
-                    Console.WriteLine("Invalid Menu Option");
-                    Console.WriteLine("===================");
-                    continue;
-                }
-
-                selection_i = Convert.ToInt32(selection_s);
+                selection = Convert.ToInt32(selection_s);
 
                 Console.Clear();
 
-                switch (selection_i)
+                switch (selection)
                 {
                     case 1: // View 
-                        Console.WriteLine("===");
+                        Console.WriteLine("1 - View Records");
                         break;
                     case 2: //
-                        Console.WriteLine("===");
+                        Console.WriteLine("2 - Manage Records");
                         break;
                     case 3: //
-                        Console.WriteLine("===");
+                        Console.WriteLine("3 - Pending");
                         break;
                     case 4:  //
-                        Console.WriteLine("===");
+                        Console.WriteLine("4 - Save Changes to File");
                         break;
                     case 5: //Quit
                         Console.WriteLine("Program Exit: Goodbye");
                         quit = true;
                         break;
                 }
-
-
+                
 
             }
-        
+
+            Console.WriteLine("Program Exit: Goodbye");
             
-
-            
-
-
-
         }
     }
 }
